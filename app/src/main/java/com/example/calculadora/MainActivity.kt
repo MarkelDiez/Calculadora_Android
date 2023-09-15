@@ -3,8 +3,10 @@ package com.example.calculadora
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -14,6 +16,9 @@ class MainActivity : AppCompatActivity() {
     var Ope1:Int = 0
     var Operando:String = ""
     var Ope2:Int = 0
+    var num:Int = 0
+    var texto: String = "0"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +42,8 @@ class MainActivity : AppCompatActivity() {
         val btnAC: Button = findViewById<Button>(R.id.btnAC)
         val btnCopy: Button = findViewById<Button>(R.id.btnCopy)
         val txt: TextView = findViewById<TextView>(R.id.txtResult)
+        txt.setTextColor(Color.parseColor("#FFFFFF"));
+
 
         btnCopy.setOnClickListener {
             val textToCopy = txt.text
@@ -116,47 +123,116 @@ class MainActivity : AppCompatActivity() {
         }
 
         btn0.setOnClickListener {
-            txt.text = txt.text.toString() + btn0.text
+            if(txt.text == "0") {
+                txt.text  = ""
+                txt.text = txt.text.toString() + btn0.text
+            } else {
+                txt.text = txt.text.toString() + btn0.text
+            }
         }
 
         btn1.setOnClickListener {
-            txt.text = txt.text.toString() + btn1.text
+            if(txt.text == "0") {
+                texto = ""
+                texto = texto + btn1.text
+                txt.text = texto
+            } else {
+                texto = texto + btn1.text
+                txt.text = texto
+            }
         }
 
         btn2.setOnClickListener {
-            txt.text = txt.text.toString() + btn2.text
+            if(txt.text == "0") {
+                texto = ""
+                texto = texto + btn2.text
+                txt.text = texto
+            } else {
+                texto = texto + btn2.text
+                txt.text = texto
+            }
         }
 
         btn3.setOnClickListener {
-            txt.text = txt.text.toString() + btn3.text
+            if(txt.text == "0") {
+                texto = ""
+                texto = texto + btn3.text
+                txt.text = texto
+            } else {
+                texto = texto + btn3.text
+                txt.text = texto
+            }
         }
 
         btn4.setOnClickListener {
-            txt.text = txt.text.toString() + btn4.text
+            if(txt.text == "0") {
+                texto = ""
+                texto = texto + btn4.text
+                txt.text = texto
+            } else {
+                texto = texto + btn4.text
+                txt.text = texto
+            }
         }
 
         btn5.setOnClickListener {
-            txt.text = txt.text.toString() + btn5.text
+            if(txt.text == "0") {
+                texto = ""
+                texto = texto + btn5.text
+                txt.text = texto
+            } else {
+                texto = texto + btn5.text
+                txt.text = texto
+            }
         }
 
         btn6.setOnClickListener {
-            txt.text = txt.text.toString() + btn6.text
+            if(txt.text == "0") {
+                texto = ""
+                texto = texto + btn6.text
+                txt.text = texto
+            } else {
+                texto = texto + btn6.text
+                txt.text = texto
+            }
         }
 
         btn7.setOnClickListener {
-            txt.text = txt.text.toString() + btn7.text
+            if(txt.text == "0") {
+                texto = ""
+                texto = texto + btn7.text
+                txt.text = texto
+            } else {
+                texto = texto + btn7.text
+                txt.text = texto
+            }
         }
 
         btn8.setOnClickListener {
-            txt.text = txt.text.toString() + btn8.text
+            if(txt.text == "0") {
+                texto = ""
+                texto = texto + btn8.text
+                txt.text = texto
+            } else {
+                texto = texto + btn8.text
+                txt.text = texto
+            }
         }
 
         btn9.setOnClickListener {
-            txt.text = txt.text.toString() + btn9.text
+            if(txt.text == "0") {
+                texto = ""
+                texto = texto + btn9.text
+                txt.text = texto
+            } else {
+                texto = texto + btn9.text
+                txt.text = texto
+            }
         }
 
         btnAC.setOnClickListener {
-            txt.text = ""
+            texto = ""
+            txt.text = texto
             Ope1 = 0
             Ope2 = 0
             btnMinus.setEnabled(true);
@@ -165,5 +241,34 @@ class MainActivity : AppCompatActivity() {
             btnPlus.setEnabled(true);
         }
 
+
     }
+
+    override fun onResume(){
+        super.onResume()
+        Log.d("Debug","onResume")
+        val text:TextView = findViewById(R.id.txtResult)
+        text.text = texto
+    }
+    override fun onSaveInstanceState(outState: Bundle) {
+// Save the user's current game state.
+        outState?.run {
+            putString("texto", texto)
+        }
+        Log.d("Debug",texto)
+// Always call the superclass so it can save the view hierarchy.
+        super.onSaveInstanceState(outState)
+    }
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+// Always call the superclass so it can restore the view hierarchy.
+        super.onRestoreInstanceState(savedInstanceState)
+// Restore state members from saved instance.
+        savedInstanceState?.run {
+           texto = savedInstanceState.getString("texto").toString()
+        }
+        Log.d("Debug",texto)
+
+
+}
+
 }
